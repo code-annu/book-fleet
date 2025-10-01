@@ -2,8 +2,7 @@ import express from "express";
 
 const app = express();
 
-// const key = process.env.SUPABASE_ANON_KEY;
-// const url = process.env.SUPABASE_URL;
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
