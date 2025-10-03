@@ -11,6 +11,16 @@ export class AuthenticationService {
     if (error) throw error;
     if (data.user == null || data.session == null)
       throw Error("Something went wrong!");
+
+    return mapToAuthenticationResponse(data.user, data.session);
+  }
+
+  async signin(authCred: AuthCredential): Promise<AuthenticationResponse> {
+    const { data, error } = await this.db.auth.signInWithPassword(authCred);
+    if (error) throw error;
+    if (data.user == null || data.session == null)
+      throw Error("Something went wrong!");
+
     return mapToAuthenticationResponse(data.user, data.session);
   }
 }

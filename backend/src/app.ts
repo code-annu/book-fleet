@@ -1,4 +1,5 @@
 import express from "express";
+import { authRouter } from "./modules/auth/auth-router";
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.get("/api/v1", async (req, res) => {
 
   res.json({ result: result, status: "success" });
 });*/
+
+app.use("/api/v1", authRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {
