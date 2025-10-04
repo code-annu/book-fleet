@@ -1,5 +1,6 @@
 import express from "express";
 import { authRouter } from "./modules/auth/auth-router";
+import { userRouter } from "./modules/user/user-router";
 
 const app = express();
 
@@ -33,7 +34,8 @@ app.get("/api/v1", async (req, res) => {
   res.json({ result: result, status: "success" });
 });*/
 
-app.use("/api/v1", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {
