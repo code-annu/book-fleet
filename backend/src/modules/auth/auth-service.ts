@@ -9,6 +9,7 @@ export class AuthenticationService {
   async signup(authCred: AuthCredential): Promise<AuthenticationResponse> {
     const { data, error } = await this.db.auth.signUp(authCred);
     if (error) throw error;
+    this.db.auth.getSession()
     if (data.user == null || data.session == null)
       throw Error("Something went wrong!");
 

@@ -6,7 +6,6 @@ export class AuthenticationController {
 
   async signupPost(req: Request, res: Response) {
     const data = req.body;
-    console.log(data);
     try {
       const result = await this.authenticationService.signup(data);
       res.status(201).json(result);
@@ -17,7 +16,6 @@ export class AuthenticationController {
 
   async signinPost(req: Request, res: Response) {
     const data = req.body;
-    console.log(data);
     try {
       const result = await this.authenticationService.signin(data);
       res.status(200).json(result);
