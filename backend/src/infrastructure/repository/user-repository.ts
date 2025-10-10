@@ -35,6 +35,7 @@ export class UserRepository extends BaseRepository implements IUserRepository {
     const { data, error } = await super.getByUid(uid);
     if (data == null) return null;
     if (error) {
+      console.log(error);
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
     return data as User;
@@ -62,6 +63,16 @@ export class UserRepository extends BaseRepository implements IUserRepository {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
 
+    return data as User;
+  }
+
+  async deleteUser(uid: string): Promise<User | null> {
+    const { data, error } = await super.delete(uid);
+    if (data == null) return null;
+    if (error) {
+      console.log(error);
+      throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
+    }
     return data as User;
   }
 }

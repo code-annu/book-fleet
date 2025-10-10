@@ -7,7 +7,7 @@ import {
   signupSchema,
 } from "../schema/auth-schema";
 
-export const authRouter = Router();
+export const authRouter = Router({ mergeParams: true });
 const authController = new AuthController();
 
 authRouter.post(

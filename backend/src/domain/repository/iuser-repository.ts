@@ -8,4 +8,6 @@ export interface IUserRepository {
     uid: string,
     refreshToken: string
   ): Promise<User | null>;
+
+  deleteUser(uid: string): Promise<User | null>;
 }
