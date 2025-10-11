@@ -1,4 +1,4 @@
-import { Response, Request } from "express";
+import { Response,  } from "express";
 import { CustomError } from "../../domain/error/custom-error";
 import { IUserProfileRepository } from "../../domain/repository/iuser-profile-repository";
 import { CreateUserProfile } from "../../domain/usecase/profile/create-user-profile";
