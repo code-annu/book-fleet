@@ -6,6 +6,7 @@ import { DeleteBookSale } from "../../domain/usecase/book-sale/delete-book-sale"
 import { IBookRepository } from "../../domain/repository/ibook-sale-repository";
 import { CustomError } from "../../domain/error/custom-error";
 import { AuthRequest } from "../middleware/auth-middleware";
+import { IUserProfileRepository } from "../../domain/repository/iuser-profile-repository";
 
 export class BookSaleController {
   private createBookSale: CreateNewBookSale;
@@ -13,8 +14,11 @@ export class BookSaleController {
   private updateBookSale: UpdateBookSale;
   private deleteBookSale: DeleteBookSale;
 
-  constructor(bookRepo: IBookRepository) {
-    this.createBookSale = new CreateNewBookSale(bookRepo);
+  constructor(
+    bookRepo: IBookRepository,
+    userProfileRepo: IUserProfileRepository
+  ) {
+    this.createBookSale = new CreateNewBookSale(bookRepo, userProfileRepo);
     this.getBookSale = new GetBookSale(bookRepo);
     this.updateBookSale = new UpdateBookSale(bookRepo);
     this.deleteBookSale = new DeleteBookSale(bookRepo);

@@ -8,7 +8,7 @@ export enum BookCondition {
 }
 
 // --- Book Sale Create Schema ---
-export const bookSaleCreateSchema = z.object({
+export const bookCreateSchema = z.object({
   title: z.string().trim().min(1, "Title is required"),
   price: z.float64({ error: "Required" }),
   thumbnail_url: z.string().trim().min(1, "Thumbnail URL is required"),
@@ -17,11 +17,11 @@ export const bookSaleCreateSchema = z.object({
   book_condition: z.enum(BookCondition, {
     error: "Book condition is required",
   }),
-  sold_out: z.boolean({
-    error: "Sold out status is required",
-  }),
 });
 
 // --- Book Sale Update Schema ---
 // All fields optional for partial updates
-export const bookSaleUpdateSchema = bookSaleCreateSchema.partial();
+export const bookUpdateSchema = bookCreateSchema.partial().extend({
+  sold_out: z.boolean().optional(),
+  available: z.boolean().optional(),
+});

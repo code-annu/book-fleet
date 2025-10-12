@@ -2,17 +2,18 @@ import { Router } from "express";
 import { BookSaleController } from "../controller/book-sale-controller";
 import { BookRepository } from "../../infrastructure/repository/book-repository";
 import { validateRequestBody } from "../middleware/validate-request-body";
-import {
-  bookSaleCreateSchema,
-  bookSaleUpdateSchema,
-} from "../schema/book-sale-schema";
+import { bookCreateSchema, bookUpdateSchema } from "../schema/book-schema";
+import { UserProfileRepository } from "../../infrastructure/repository/user-profile-repository";
 
 export const bookSaleRouter = Router();
-const bookSaleController = new BookSaleController(new BookRepository());
+const bookSaleController = new BookSaleController(
+  new BookRepository(),
+  new UserProfileRepository()
+);
 
 bookSaleRouter.post(
   "/",
-  validateRequestBody(bookSaleCreateSchema),
+  validateRequestBody(bookCreateSchema),
   bookSaleController.postBookSale.bind(bookSaleController)
 );
 
@@ -23,7 +24,7 @@ bookSaleRouter.get(
 
 bookSaleRouter.patch(
   "/:uid",
-  validateRequestBody(bookSaleUpdateSchema),
+  validateRequestBody(bookUpdateSchema),
   bookSaleController.patchBookSaleByUid.bind(bookSaleController)
 );
 

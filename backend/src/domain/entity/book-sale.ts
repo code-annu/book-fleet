@@ -8,6 +8,7 @@ export interface BookSale {
   description: string;
   book_condition: BookCondition;
   sold_out: boolean;
+  available: boolean;
   created_at: string;
 }
 
@@ -27,7 +28,9 @@ export interface BookSaleCreate
     | "pickup_address"
     | "description"
     | "book_condition"
-    | "sold_out"
   > {}
 
-export interface BookSaleUpdate extends Partial<BookSaleCreate> {}
+export interface BookSaleUpdate extends Partial<BookSaleCreate> {
+  sold_out: boolean;
+  available: boolean;
+}
