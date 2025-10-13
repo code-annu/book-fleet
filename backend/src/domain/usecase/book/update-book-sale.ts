@@ -1,4 +1,4 @@
-import { BookSale, BookSaleUpdate } from "../../entity/book-sale";
+import { Book, BookUpdate } from "../../entity/book";
 import { CustomError } from "../../error/custom-error";
 import { ErrorType } from "../../error/error-type";
 import { IBookRepository } from "../../repository/ibook-sale-repository";
@@ -9,9 +9,9 @@ export class UpdateBookSale {
   async execute(
     uid: string,
     userUid: string,
-    updates: BookSaleUpdate
-  ): Promise<BookSale> {
-    const bookSale = await this.bookRepository.getBookSale(uid);
+    updates: BookUpdate
+  ): Promise<Book> {
+    const bookSale = await this.bookRepository.getBook(uid);
     if (bookSale == null) {
       throw new CustomError("Book sale not found!", ErrorType.NOT_FOUND);
     }
@@ -22,7 +22,7 @@ export class UpdateBookSale {
       );
     }
 
-    const updatedBookSale = await this.bookRepository.updateBookSale(
+    const updatedBookSale = await this.bookRepository.updateBook(
       uid,
       updates
     );

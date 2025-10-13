@@ -1,4 +1,4 @@
-import { BookSale, BookSaleCreate } from "../../entity/book-sale";
+import { Book, BookCreate } from "../../entity/book";
 import { CustomError } from "../../error/custom-error";
 import { ErrorType } from "../../error/error-type";
 import { IBookRepository } from "../../repository/ibook-sale-repository";
@@ -10,7 +10,7 @@ export class CreateNewBookSale {
     private readonly profileRepo: IUserProfileRepository
   ) {}
 
-  async execute(bookSaleCreate: BookSaleCreate): Promise<BookSale> {
+  async execute(bookSaleCreate: BookCreate): Promise<Book> {
     const userProfile = await this.profileRepo.getUserProfile(
       bookSaleCreate.seller_uid
     );
@@ -20,6 +20,6 @@ export class CreateNewBookSale {
         ErrorType.FORBIDDEN
       );
     }
-    return this.bookRepo.createBookSale(bookSaleCreate);
+    return this.bookRepo.createBook(bookSaleCreate);
   }
 }

@@ -1,4 +1,4 @@
-export interface BookSale {
+export interface Book {
   uid: string;
   title: string;
   seller_uid: string;
@@ -18,9 +18,9 @@ export enum BookCondition {
   POOR = "poor",
 }
 
-export interface BookSaleCreate
+export interface BookCreate
   extends Pick<
-    BookSale,
+    Book,
     | "title"
     | "seller_uid"
     | "price"
@@ -30,7 +30,7 @@ export interface BookSaleCreate
     | "book_condition"
   > {}
 
-export interface BookSaleUpdate extends Partial<BookSaleCreate> {
+export interface BookUpdate extends Partial<BookCreate> {
   sold_out: boolean;
   available: boolean;
 }

@@ -1,16 +1,16 @@
-import { BookSale, BookSaleCreate, BookSaleUpdate } from "../entity/book-sale";
+import { Book, BookCreate, BookUpdate } from "../entity/book";
 
 export interface IBookRepository {
-  createBookSale(
-    bookSaleCreate: BookSaleCreate
-  ): Promise<BookSale>;
+  createBook(
+    bookSaleCreate: BookCreate
+  ): Promise<Book>;
 
-  getBookSale(uid: string): Promise<BookSale | null>;
+  getBook(uid: string): Promise<Book | null>;
 
-  updateBookSale(
+  updateBook(
     uid: string,
-    updates: BookSaleUpdate
-  ): Promise<BookSale | null>;
+    updates: BookUpdate
+  ): Promise<Book | null>;
 
-  deleteBookSale(uid: string): Promise<BookSale | null>;
+  deleteBook(uid: string): Promise<Book | null>;
 }
