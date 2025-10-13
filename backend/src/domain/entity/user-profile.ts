@@ -1,9 +1,11 @@
+import { UserRole } from "./auth";
+
 export interface UserProfile {
   uid: string;
   email: string;
   first_name: string;
   last_name: string;
-  role: string;
+  role: UserRole;
   address: string;
   profile_picture_url: string;
   created_at: string;

@@ -16,9 +16,11 @@ export class CreateUserProfile {
   ): Promise<UserProfile> {
     const user = await this.userRepository.getAuthUserByUid(uid);
     if (!user) throw new CustomError("User not found", ErrorType.NOT_FOUND);
+    
     return this.userProfileRepository.createUserProfile(uid, {
       ...userProfileData,
       email: user.email,
+      role: user.role,
     });
   }
 }
