@@ -65,7 +65,7 @@ export class UserProfileController {
       const data = req.body;
       const uid = req.auth?.userId;
       const userProfile = await this.updateProfile.execute(uid!, data);
-      res.status(201).json(userProfile);
+      res.status(200).json(userProfile);
     } catch (e) {
       if (e instanceof CustomError) {
         res.status(e.errorType).json({ message: e.message });
@@ -80,7 +80,7 @@ export class UserProfileController {
       const uid = req.auth?.userId;
 
       const userProfile = await this.deleteUser.execute(uid!);
-      res.status(201).json(userProfile);
+      res.status(200).json(userProfile);
     } catch (e) {
       if (e instanceof CustomError) {
         res.status(e.errorType).json({ message: e.message });

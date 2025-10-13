@@ -1,34 +1,34 @@
 import { Router } from "express";
-import { BookSaleController } from "../controller/book-sale-controller";
+import { BookController } from "../controller/book-controller";
 import { BookRepository } from "../../infrastructure/repository/book-repository";
 import { validateRequestBody } from "../middleware/validate-request-body";
 import { bookCreateSchema, bookUpdateSchema } from "../schema/book-schema";
 import { UserProfileRepository } from "../../infrastructure/repository/user-profile-repository";
 
-export const bookSaleRouter = Router();
-const bookSaleController = new BookSaleController(
+export const bookRouter = Router();
+const bookController = new BookController(
   new BookRepository(),
   new UserProfileRepository()
 );
 
-bookSaleRouter.post(
+bookRouter.post(
   "/",
   validateRequestBody(bookCreateSchema),
-  bookSaleController.postBookSale.bind(bookSaleController)
+  bookController.postBookSale.bind(bookController)
 );
 
-bookSaleRouter.get(
+bookRouter.get(
   "/:uid",
-  bookSaleController.getBookSaleByUid.bind(bookSaleController)
+  bookController.getBookSaleByUid.bind(bookController)
 );
 
-bookSaleRouter.patch(
+bookRouter.patch(
   "/:uid",
   validateRequestBody(bookUpdateSchema),
-  bookSaleController.patchBookSaleByUid.bind(bookSaleController)
+  bookController.patchBookSaleByUid.bind(bookController)
 );
 
-bookSaleRouter.delete(
+bookRouter.delete(
   "/:uid",
-  bookSaleController.deleteBookSaleByUid.bind(bookSaleController)
+  bookController.deleteBookSaleByUid.bind(bookController)
 );

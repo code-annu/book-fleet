@@ -1,8 +1,8 @@
 import {
-  BookSaleCreate,
-  BookSale,
-  BookSaleUpdate,
-} from "../../domain/entity/book-sale";
+  BookCreate,
+  Book,
+  BookUpdate,
+} from "../../domain/entity/book";
 import { CustomError } from "../../domain/error/custom-error";
 import { ErrorType } from "../../domain/error/error-type";
 import { IBookRepository } from "../../domain/repository/ibook-sale-repository";
@@ -14,41 +14,41 @@ export class BookRepository extends BaseRepository implements IBookRepository {
     super(BOOKS_TABLE);
   }
 
-  async createBookSale(bookSaleCreate: BookSaleCreate): Promise<BookSale> {
+  async createBook(bookSaleCreate: BookCreate): Promise<Book> {
     const { data, error } = await super.insert(bookSaleCreate);
     if (error) {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as BookSale;
+    return data as Book;
   }
 
-  async getBookSale(uid: string): Promise<BookSale | null> {
+  async getBook(uid: string): Promise<Book | null> {
     const { data, error } = await super.getByUid(uid);
     if (data == null) return null;
     if (error) {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as BookSale;
+    return data as Book;
   }
 
-  async updateBookSale(
+  async updateBook(
     uid: string,
-    updates: BookSaleUpdate
-  ): Promise<BookSale | null> {
+    updates: BookUpdate
+  ): Promise<Book | null> {
     const { data, error } = await super.update(uid, updates);
     if (data == null) return null;
     if (error) {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as BookSale;
+    return data as Book;
   }
 
-  async deleteBookSale(uid: string): Promise<BookSale | null> {
+  async deleteBook(uid: string): Promise<Book | null> {
     const { data, error } = await super.delete(uid);
     if (data == null) return null;
     if (error) {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as BookSale;
+    return data as Book;
   }
 }

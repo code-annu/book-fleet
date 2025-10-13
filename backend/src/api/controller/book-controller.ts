@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
-import { CreateNewBookSale } from "../../domain/usecase/book-sale/create-new-book-sale";
-import { GetBookSale } from "../../domain/usecase/book-sale/get-book-sale";
-import { UpdateBookSale } from "../../domain/usecase/book-sale/update-book-sale";
-import { DeleteBookSale } from "../../domain/usecase/book-sale/delete-book-sale";
+import { Response } from "express";
+import { CreateNewBookSale } from "../../domain/usecase/book/create-new-book-sale";
+import { GetBookSale } from "../../domain/usecase/book/get-book-sale";
+import { UpdateBookSale } from "../../domain/usecase/book/update-book-sale";
+import { DeleteBookSale } from "../../domain/usecase/book/delete-book-sale";
 import { IBookRepository } from "../../domain/repository/ibook-sale-repository";
 import { CustomError } from "../../domain/error/custom-error";
 import { AuthRequest } from "../middleware/auth-middleware";
 import { IUserProfileRepository } from "../../domain/repository/iuser-profile-repository";
 
-export class BookSaleController {
+export class BookController {
   private createBookSale: CreateNewBookSale;
   private getBookSale: GetBookSale;
   private updateBookSale: UpdateBookSale;
