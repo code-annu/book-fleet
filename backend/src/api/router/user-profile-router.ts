@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserProfileController } from "../controller/user-profile-controller";
 import { UserProfileRepository } from "../../infrastructure/repository/user-profile-repository";
-import { UserRepository } from "../../infrastructure/repository/user-repository";
+import { AuthRepository } from "../../infrastructure/repository/auth-repository";
 import { validateRequestBody } from "../middleware/validate-request-body";
 import {
   userProfileCreateSchema,
@@ -11,7 +11,7 @@ import {
 export const userProfileRouter = Router({ mergeParams: true });
 const userProfileController = new UserProfileController(
   new UserProfileRepository(),
-  new UserRepository()
+  new AuthRepository()
 );
 
 userProfileRouter.post(

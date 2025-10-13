@@ -2,16 +2,16 @@ import { UserProfile, UserProfileUpdate } from "../../entity/user-profile";
 import { CustomError } from "../../error/custom-error";
 import { ErrorType } from "../../error/error-type";
 import { IUserProfileRepository } from "../../repository/iuser-profile-repository";
-import { IUserRepository } from "../../repository/iuser-repository";
+import { IAuthRepository } from "../../repository/iauth-repository";
 
 export class UpdateUserProfile {
   constructor(
     private readonly userProfileRepository: IUserProfileRepository,
-    private readonly userRepository: IUserRepository
+    private readonly userRepository: IAuthRepository
   ) {}
 
   async execute(uid: string, updates: UserProfileUpdate): Promise<UserProfile> {
-    const user = await this.userRepository.getUserByUid(uid);
+    const user = await this.userRepository.getAuthUserByUid(uid);
     if (!user)
       throw new CustomError(
         "User not found! Account may be deleted or deactivated",

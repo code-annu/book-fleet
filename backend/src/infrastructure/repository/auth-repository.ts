@@ -1,21 +1,18 @@
-import { User } from "../../domain/entity/user";
-import { IUserRepository } from "../../domain/repository/iuser-repository";
+import { AuthUser, AuthUserCreate } from "../../domain/entity/auth";
+import { IAuthRepository } from "../../domain/repository/iauth-repository";
 import { BaseRepository } from "./base-repository";
 import { CustomError } from "../../domain/error/custom-error";
 import { ErrorType } from "../../domain/error/error-type";
 
 const AUTH_TABLE = "auth";
 
-export class UserRepository extends BaseRepository implements IUserRepository {
+export class AuthRepository extends BaseRepository implements IAuthRepository {
   constructor() {
     super(AUTH_TABLE);
   }
 
-  async createUser(email: string, password_hash: string): Promise<User> {
-    const { data, error } = await super.insert({
-      email,
-      password_hash,
-    });
+  async createNewAuthUser(userData: AuthUserCreate): Promise<AuthUser> {
+    const { data, error } = await super.insert(userData);
 
     if (error) {
       switch (error.code) {
@@ -28,32 +25,32 @@ export class UserRepository extends BaseRepository implements IUserRepository {
           throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
       }
     }
-    return data as User;
+    return data as AuthUser;
   }
 
-  async getUserByUid(uid: string): Promise<User | null> {
+  async getAuthUserByUid(uid: string): Promise<AuthUser | null> {
     const { data, error } = await super.getByUid(uid);
     if (data == null) return null;
     if (error) {
       console.log(error);
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as User;
+    return data as AuthUser;
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
+  async getAuthUserByEmail(email: string): Promise<AuthUser | null> {
     const { data, error } = await super.getByKey("email", email);
     if (data == null) return null;
     if (error) {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as User;
+    return data as AuthUser;
   }
 
   async updateUserRefreshToken(
     uid: string,
     refreshToken: string
-  ): Promise<User | null> {
+  ): Promise<AuthUser | null> {
     const { data, error } = await super.update(uid, {
       refresh_token: refreshToken,
     });
@@ -63,16 +60,16 @@ export class UserRepository extends BaseRepository implements IUserRepository {
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
 
-    return data as User;
+    return data as AuthUser;
   }
 
-  async deleteUser(uid: string): Promise<User | null> {
+  async deleteUser(uid: string): Promise<AuthUser | null> {
     const { data, error } = await super.delete(uid);
     if (data == null) return null;
     if (error) {
       console.log(error);
       throw new CustomError(error.message, ErrorType.INTERNAL_SERVER_ERROR);
     }
-    return data as User;
+    return data as AuthUser;
   }
 }

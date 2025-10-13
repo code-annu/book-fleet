@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Signup } from "../../domain/usecase/auth/signup";
-import { UserRepository } from "../../infrastructure/repository/user-repository";
+import { AuthRepository } from "../../infrastructure/repository/auth-repository";
 import { mapToAuthResponse } from "../mapper/auth-mapper";
 import { Login } from "../../domain/usecase/auth/login";
 import { CustomError } from "../../domain/error/custom-error";
@@ -12,7 +12,7 @@ export class AuthController {
   private refreshToken: RefreshToken;
 
   constructor() {
-    const userRepository = new UserRepository();
+    const userRepository = new AuthRepository();
     this.signup = new Signup(userRepository);
     this.login = new Login(userRepository);
     this.refreshToken = new RefreshToken(userRepository);
@@ -20,8 +20,8 @@ export class AuthController {
 
   async postSignup(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
-      const userWithSession = await this.signup.execute(email, password);
+      const { email, password, role } = req.body;
+      const userWithSession = await this.signup.execute(email, password, role);
       res.status(201).json(mapToAuthResponse(userWithSession));
     } catch (e) {
       if (e instanceof CustomError) {

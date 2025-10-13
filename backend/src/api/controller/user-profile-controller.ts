@@ -5,7 +5,7 @@ import { CreateUserProfile } from "../../domain/usecase/profile/create-user-prof
 import { GetUserProfile } from "../../domain/usecase/profile/get-user-profile";
 import { UpdateUserProfile } from "../../domain/usecase/profile/update-user-profile";
 import { DeleteUser } from "../../domain/usecase/profile/delete-user-with-profile";
-import { IUserRepository } from "../../domain/repository/iuser-repository";
+import { IAuthRepository } from "../../domain/repository/iauth-repository";
 import { AuthRequest } from "../middleware/auth-middleware";
 
 export class UserProfileController {
@@ -16,7 +16,7 @@ export class UserProfileController {
 
   constructor(
     userProfileRepository: IUserProfileRepository,
-    userRepository: IUserRepository
+    userRepository: IAuthRepository
   ) {
     this.createProfile = new CreateUserProfile(
       userProfileRepository,

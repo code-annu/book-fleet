@@ -3,16 +3,16 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../../../util/jwt-util";
-import { IUserRepository } from "../../repository/iuser-repository";
+import { IAuthRepository } from "../../repository/iauth-repository";
 import { UserWithSession } from "./output";
 import { CustomError } from "../../error/custom-error";
 import { ErrorType } from "../../error/error-type";
 
 export class RefreshToken {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(private readonly userRepository: IAuthRepository) {}
   async execute(token: string): Promise<UserWithSession> {
     const decodedData = verifyRefreshToken(token);
-    const user = await this.userRepository.getUserByUid(decodedData.userId);
+    const user = await this.userRepository.getAuthUserByUid(decodedData.userId);
 
     if (user == null) {
       throw new CustomError(
@@ -38,6 +38,7 @@ export class RefreshToken {
 
     return {
       user: user,
+      role: user.role,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };

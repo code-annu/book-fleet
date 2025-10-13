@@ -1,4 +1,5 @@
 import z from "zod";
+import { UserRole } from "../../domain/entity/auth";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -12,6 +13,9 @@ export const signupSchema = z.object({
     .string()
     .trim()
     .min(6, "Password must be at least 6 characters long"),
+  role: z.enum(UserRole, {
+    error: "Please specify User role from [user, delivery_partner]",
+  }),
 });
 
 export const loginSchema = z.object({
